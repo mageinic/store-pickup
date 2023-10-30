@@ -1,0 +1,228 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * MageINIC
+ * Copyright (C) 2023 MageINIC <support@mageinic.com>
+ *
+ * NOTICE OF LICENSE
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see https://opensource.org/licenses/gpl-3.0.html.
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category MageINIC
+ * @package MageINIC_StorePickup
+ * @copyright Copyright (c) 2023 MageINIC (https://www.mageinic.com/)
+ * @license https://opensource.org/licenses/gpl-3.0.html GNU General Public License,version 3 (GPL-3.0)
+ * @author MageINIC <support@mageinic.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="MageINIC\StorePickup\Api\Data\StorePickupInterface"
+                type="MageINIC\StorePickup\Model\StorePickup"/>
+    <preference for="MageINIC\StorePickup\Api\Data\StorePickupSearchResultsInterface"
+                type="Magento\Framework\Api\SearchResults"/>
+    <preference for="MageINIC\StorePickup\Api\StorePickupRepositoryInterface"
+                type="MageINIC\StorePickup\Model\StorePickupRepository"/>
+    <preference for="MageINIC\StorePickup\Api\StorePickupRepositoryInterface"
+                type="MageINIC\StorePickup\Model\StorePickupRepository\ValidationComposite"/>
+    <preference for="MageINIC\StorePickup\Api\GetStorePickupByIdentifierInterface"
+                type="MageINIC\StorePickup\Model\GetStorePickupByIdentifier"/>
+
+    <preference for="MageINIC\StorePickup\Api\Data\HolidaysInterface"
+                type="MageINIC\StorePickup\Model\Holidays"/>
+    <preference for="MageINIC\StorePickup\Api\Data\HolidaysSearchResultsInterface"
+                type="Magento\Framework\Api\SearchResults"/>
+    <preference for="MageINIC\StorePickup\Api\HolidaysRepositoryInterface"
+                type="MageINIC\StorePickup\Model\HolidaysRepository"/>
+
+
+
+        <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+            <arguments>
+                <argument name="collections" xsi:type="array">
+                    <item name="miholidays_listing_data_source" xsi:type="string">
+                        MageINIC\StorePickup\Model\ResourceModel\Holidays\Grid\Collection</item>
+                </argument>
+            </arguments>
+        </type>
+        <virtualType name="MageINIC\StorePickup\Model\ResourceModel\Holidays\Grid\Collection"
+                     type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+            <arguments>
+                <argument name="mainTable" xsi:type="string">mageinic_store_holidays</argument>
+                <argument name="resourceModel"
+                          xsi:type="string">MageINIC\StorePickup\Model\ResourceModel\Holidays\Collection</argument>
+            </arguments>
+        </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="mistore_pickup_listing_data_source" xsi:type="string">
+                    MageINIC\StorePickup\Model\ResourceModel\StorePickup\Grid\Collection
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="MageINIC\StorePickup\Model\ResourceModel\StorePickup\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">mageinic_store_pickup</argument>
+            <argument name="eventPrefix" xsi:type="string">mageinic_store_pickup_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">mageinic_grid_collection</argument>
+            <argument name="resourceModel"
+                      xsi:type="string">MageINIC\StorePickup\Model\ResourceModel\StorePickup</argument>
+        </arguments>
+    </virtualType>
+    <type name="MageINIC\StorePickup\Model\StorePickupRepository">
+        <arguments>
+            <argument name="collectionProcessor"
+                      xsi:type="object">MageINIC\StorePickup\Model\Api\SearchCriteria\CollectionProcessor</argument>
+            <argument name="hydrator" xsi:type="object">Magento\Framework\EntityManager\AbstractModelHydrator</argument>
+        </arguments>
+    </type>
+    <virtualType name="MageINIC\StorePickup\Model\Api\SearchCriteria\CollectionProcessor"
+                 type="Magento\Framework\Api\SearchCriteria\CollectionProcessor">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="filters" xsi:type="object">
+                    MageINIC\StorePickup\Model\Api\SearchCriteria\CollectionProcessor\FilterProcessor</item>
+                <item name="sorting" xsi:type="object">
+                    Magento\Framework\Api\SearchCriteria\CollectionProcessor\SortingProcessor</item>
+                <item name="pagination" xsi:type="object">
+                    Magento\Framework\Api\SearchCriteria\CollectionProcessor\PaginationProcessor</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="MageINIC\StorePickup\Model\Api\SearchCriteria\CollectionProcessor\FilterProcessor"
+                 type="Magento\Framework\Api\SearchCriteria\CollectionProcessor\FilterProcessor">
+        <arguments>
+            <argument name="customFilters" xsi:type="array">
+                <item name="store_id" xsi:type="object">
+                    MageINIC\StorePickup\Model\Api\SearchCriteria\CollectionProcessor\FilterProcessor\StoreFilter</item>
+                <item name="holiday_id" xsi:type="object">
+                    MageINIC\StorePickup\Model\Api\SearchCriteria\CollectionProcessor\FilterProcessor\HolidayFilter
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="MageINIC\StorePickup\ImageUploader" type="MageINIC\StorePickup\Model\ImageUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">mageINIC/store_pickup/tmp</argument>
+            <argument name="basePath" xsi:type="string">mageINIC/store_pickup</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="gif" xsi:type="string">gif</item>
+                <item name="png" xsi:type="string">png</item>
+            </argument>
+            <argument name="allowedMimeTypes" xsi:type="array">
+                <item name="jpg" xsi:type="string">image/jpg</item>
+                <item name="jpeg" xsi:type="string">image/jpeg</item>
+                <item name="gif" xsi:type="string">image/gif</item>
+                <item name="png" xsi:type="string">image/png</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="MageINIC\StorePickup\Controller\Adminhtml\StorePickup\Image\Upload">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">MageINIC\StorePickup\ImageUploader</argument>
+        </arguments>
+    </type>
+    <type name="MageINIC\StorePickup\Controller\Adminhtml\StorePickup\Save">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">MageINIC\StorePickup\ImageUploader</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\Model\Entity\RepositoryFactory">
+        <arguments>
+            <argument name="entities" xsi:type="array">
+                <item name="MageINIC\StorePickup\Api\Data\StorePickupInterface"
+                      xsi:type="string">MageINIC\StorePickup\Api\StorePickupRepositoryInterface</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="MageINIC\StorePickup\Api\Data\StorePickupInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">mageinic_store_pickup</item>
+                    <item name="identifierField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\Operation\ExtensionPool">
+        <arguments>
+            <argument name="extensionActions" xsi:type="array">
+                <item name="MageINIC\StorePickup\Api\Data\StorePickupInterface" xsi:type="array">
+                    <item name="read" xsi:type="array">
+                        <item name="storeReader" xsi:type="string">
+                            MageINIC\StorePickup\Model\ResourceModel\StorePickup\Relation\Store\ReadHandler</item>
+                        <item name="holidayReader" xsi:type="string">
+                            MageINIC\StorePickup\Model\ResourceModel\StorePickup\Relation\Holiday\ReadHandler</item>
+                    </item>
+                    <item name="create" xsi:type="array">
+                        <item name="storeCreator" xsi:type="string">
+                            MageINIC\StorePickup\Model\ResourceModel\StorePickup\Relation\Store\SaveHandler</item>
+                        <item name="holidayCreator" xsi:type="string">
+                            MageINIC\StorePickup\Model\ResourceModel\StorePickup\Relation\Holiday\SaveHandler</item>
+                    </item>
+                    <item name="update" xsi:type="array">
+                        <item name="storeUpdater" xsi:type="string">
+                            MageINIC\StorePickup\Model\ResourceModel\StorePickup\Relation\Store\SaveHandler</item>
+                        <item name="holidayUpdater" xsi:type="string">
+                            MageINIC\StorePickup\Model\ResourceModel\StorePickup\Relation\Holiday\SaveHandler</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\HydratorPool">
+        <arguments>
+            <argument name="hydrators" xsi:type="array">
+                <item name="MageINIC\StorePickup\Api\Data\StorePickupInterface"
+                      xsi:type="string">Magento\Framework\EntityManager\AbstractModelHydrator</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Magento\Sales\Model\ResourceModel\Order\Grid">
+        <arguments>
+            <argument name="columns" xsi:type="array">
+                <item name="store_pickup_id" xsi:type="string">sales_order.store_pickup_id</item>
+                <item name="store_pickup_date" xsi:type="string">sales_order.store_pickup_date</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="MageINIC\StorePickup\Model\StorePickupRepository\ValidationComposite">
+        <arguments>
+            <argument name="repository" xsi:type="object">MageINIC\StorePickup\Model\StorePickupRepository</argument>
+            <argument name="hydrator" xsi:type="object">Magento\Framework\EntityManager\AbstractModelHydrator</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Checkout\Model\ShippingInformationManagement">
+        <plugin name="store-pickup-shipping-save"
+                type="MageINIC\StorePickup\Plugin\StorePickupShippingInfoManage" sortOrder="10"/>
+    </type>
+    <type name="Magento\Sales\Model\Order">
+        <plugin name="store-pickup-order-save" type="MageINIC\StorePickup\Plugin\StorePickupOrder" sortOrder="10"/>
+    </type>
+    <type name="Magento\UrlRewrite\Model\UrlRewrite">
+        <arguments>
+            <argument name="entityToCacheTagMap" xsi:type="array">
+                <item name="store-pickup" xsi:type="const">MageINIC\StorePickup\Model\StorePickup::CACHE_TAG</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="MageINIC\StorePickup\Helper\Data">
+        <arguments>
+            <argument name="customerSession" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
+        </arguments>
+    </type>
+</config>

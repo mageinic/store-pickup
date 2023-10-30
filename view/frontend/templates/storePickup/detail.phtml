@@ -1,0 +1,204 @@
+<?php
+/**
+ * MageINIC
+ * Copyright (C) 2023 MageINIC <support@mageinic.com>
+ *
+ * NOTICE OF LICENSE
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see https://opensource.org/licenses/gpl-3.0.html.
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category MageINIC
+ * @package MageINIC_StorePickup
+ * @copyright Copyright (c) 2023 MageINIC (https://www.mageinic.com/)
+ * @license https://opensource.org/licenses/gpl-3.0.html GNU General Public License,version 3 (GPL-3.0)
+ * @author MageINIC <support@mageinic.com>
+ */
+
+use MageINIC\StorePickup\Block\StorePickup\View;
+use MageINIC\StorePickup\ViewModel\StorePickup as ViewModel;
+use Magento\Framework\Escaper;
+
+/**
+ * @var View $block
+ * @var Escaper $escaper
+ * @var ViewModel $viewModel
+ */
+
+$length = '';
+$viewModel = $block->getViewModel();
+$storePickup = $block->getStorePickup();
+$storeMarkers = $viewModel->getGoogleMarkers($storePickup);
+$storeDetails = $viewModel->getGoogleMarkersDetails($storePickup);
+$holidays = $block->getHolidays()->getItems();
+$holidayCount = $block->getHolidays()->getTotalCount();
+?>
+<div class="mageinic-locator-location-main">
+    <div class="mageinic-locator-location-container">
+        <div class="mageinic-locator-column-left">
+            <div class="mageinic-locator-block mageinic-locator-location-image">
+                <div class="mageinic-locator-wrapper">
+                    <div>
+                        <a class="mageinic-locator-link"
+                           href="<?= $escaper->escapeUrl($viewModel->getStoreImageUrl($storePickup)) ?>"
+                           data-mageinic-locator-js="location-image" data-fancybox="gallery"
+                           style="width: 100%; display: inline-block;" tabindex="0">
+                            <img class="mageinic-locator-image"
+                                 src="<?= $escaper->escapeUrl($viewModel->getStoreImageUrl($storePickup)) ?>"
+                                 title="<?= $escaper->escapeHtmlAttr($storePickup->getName()) ?>"
+                                 alt="<?= $escaper->escapeHtmlAttr($storePickup->getName()) ?>"></a>
+                    </div>
+                </div>
+            </div>
+            <?= /* @noEscape */ $viewModel->getHtmlSeparator() ?>
+            <div class="mageinic-locator-block mageinic-locator-location-info">
+                <div class="mageinic-locator-block">
+                    <span><strong><?= $escaper->escapeHtml(__('Address: ')) ?></strong></span>
+                    <span class="mageinic-locator-text -bold">
+                        <?= $escaper->escapeHtml(__($block->getAddress())) ?>
+                    </span>
+                </div>
+                <div class="mageinic-locator-block">
+                    <span><strong><?= $escaper->escapeHtml(__('City: ')) ?></strong></span>
+                    <span><?= $escaper->escapeHtml($storePickup->getCity()) ?></span>
+                </div>
+                <div class="mageinic-locator-block">
+                    <span><strong><?= $escaper->escapeHtml(__('Country: ')) ?></strong></span>
+                    <span><?= $escaper->escapeHtml($viewModel->getCountryByCode($storePickup->getCountry())) ?></span>
+                </div>
+                <div class="mageinic-locator-block">
+                    <span><strong><?= $escaper->escapeHtml(__('Zip: ')) ?></strong></span>
+                    <span><?= $escaper->escapeHtml($storePickup->getPostcode()) ?></span>
+                </div>
+                <?php if ($storePickup->getWebsite()): ?>
+                    <?php $url = preg_replace("(^https?://)", "", $storePickup->getWebsite()); ?>
+                    <div class="mageinic-locator-block">
+                        <span class="icon-earth"></span>
+                        <a class="mageinic-locator-link" target="_blank"
+                           href="<?= $escaper->escapeUrl($storePickup->getWebsite()) ?>"
+                           title="<?= $escaper->escapeHtmlAttr($storePickup->getName()) ?>">
+                            <?= $escaper->escapeHtml($url) ?>
+                        </a>
+                    </div>
+                <?php endif; ?>
+                <div class="mageinic-locator-block">
+                    <span class="icon-phone"></span>
+                    <a class="mageinic-locator-link"
+                       href="<?= $escaper->escapeHtmlAttr(__('tel:%1', $storePickup->getContactNo())) ?>"
+                       title="<?= $escaper->escapeHtmlAttr($storePickup->getName()) ?>">
+                        <?= $escaper->escapeHtml($storePickup->getContactNo()) ?>
+                    </a>
+                </div>
+                <div class="mageinic-locator-block">
+                    <!--                        <span class="mageinic-locator-icon -email"></span>-->
+                    <span class="icon-envelope"></span>
+                    <a class="mageinic-locator-link"
+                       href="<?= $escaper->escapeHtmlAttr(__('mailto:%1', $storePickup->getEmail())) ?>"
+                       title="<?= $escaper->escapeHtmlAttr($storePickup->getName()) ?>">
+                        <?= $escaper->escapeHtml($storePickup->getEmail()) ?>
+                    </a>
+                </div>
+                <div class="mageinic-locator-schedule-container">
+                    <div class="mageinic-locator-week" id="schedule2"
+                         data-mage-init='{"collapsible":{"animate":{"duration" :400, "easing":"easeOutCubic"}}}'>
+                        <div class="mageinic-locator-today" data-role="title">
+                            <strong><?= $escaper->escapeHtml('Today\'s Work Time: ') ?></strong>
+                            <span class="mageinic-locator-time">
+                                    <span class="mageinic-locator-arrow -down">▼</span>
+                                </span>
+                        </div>
+                        <div class="mageinic-locator-schedule-table" data-role="content">
+                            <?= $viewModel->getContentFromHtml($viewModel->getScheduleList($storePickup)) ?>
+                        </div>
+                    </div>
+                </div>
+                <?php if ($storePickup->getHolidays() && $holidayCount): ?>
+                    <?= /* @noEscape */ $viewModel->getHtmlSeparator() ?>
+                    <div class="mageinic-locator-block">
+                        <div class="mageinic-locator-holiday-container">
+                            <div data-mage-init='{"collapsible":{"animate":{"duration" :400, "easing":"easeOutCubic"}}}'
+                                 class="mageinic-locator-holiday">
+                                <div class="mageinic-locator-today" data-role="title">
+                                    <strong><?= $escaper->escapeHtml('Holiday Info ') ?></strong>
+                                    <span class="mageinic-locator-time">
+                                        <span class="mageinic-locator-arrow -down">▼</span>
+                                    </span>
+                                </div>
+
+                                <div class="mageinic-locator-holiday-table-wrapper" data-role="content">
+                                    <table class='mageinic-locator-holiday-table'>
+                                        <thead>
+                                        <tr>
+                                            <th><?= $escaper->escapeHtml(__('Holiday Name')) ?></th>
+                                            <th><?= $escaper->escapeHtml(__('To Date')) ?></th>
+                                            <th><?= $escaper->escapeHtml(__('From Date')) ?></th>
+                                        </tr>
+                                        </thead>
+                                        <?php foreach ($holidays as $holiday): ?>
+                                            <?php $toDate = $viewModel->changeDateFormat($holiday->getToDate()) ?>
+                                            <?php $fromDate = $viewModel->changeDateFormat($holiday->getFromDate()) ?>
+                                            <tbody class='tbl-accordion-header'>
+                                            <tr>
+                                                <td>
+                                                    <a data-toggle='toggle' title='Description'>
+                                                        <strong>
+                                                            <?= $escaper->escapeHtml($holiday->getName()) ?>
+                                                        </strong>
+                                                    </a>
+                                                </td>
+                                                <td><?= $escaper->escapeHtml($toDate) ?></td>
+                                                <td><?= $escaper->escapeHtml($fromDate) ?></td>
+                                            </tr>
+                                            </tbody>
+                                            <tbody class='tbl-accordion-body' style='display: none'>
+                                            <tr>
+                                                <td>
+                                                    <strong>
+                                                        <?= $escaper->escapeHtml(__('Description:')) ?>
+                                                    </strong>
+                                                </td>
+                                                <td colspan="2">
+                                                    <?= $viewModel->getContentFromHtml($holiday->getDescription()) ?>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        <?php endforeach; ?>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php endif; ?>
+            </div>
+            <?= /* @noEscape */ $viewModel->getHtmlSeparator() ?>
+        </div>
+        <div class="mageinic-locator-column-right">
+            <div class="mageinic-locator-block -map" data-mageinic-locator-js="location-map"
+                 style="position: relative; overflow: hidden;">
+                <div id="mageinic-canvas-map"></div>
+                <script type="text/x-magento-init">
+                    {
+                        "*": {
+                            "mapLocator":{
+                                "markers": <?= /* @noEscape */ $viewModel->serialize($storeMarkers) ?>,
+                                "infoWindowContent": <?= /* @noEscape */ $viewModel->serialize($storeDetails); ?>,
+                                "schedule": <?= /* @noEscape */ $storePickup->getSchedule() ?>
+                           }
+                        }
+                    }
+                </script>
+            </div>
+            <div class="mageinic-locator-description-grey">
+                <?= $viewModel->getContentFromHtml($storePickup->getContent()) ?>
+            </div>
+        </div>
+    </div>
+</div>

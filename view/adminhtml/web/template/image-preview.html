@@ -1,0 +1,54 @@
+<!--
+/**
+ * MageINIC
+ * Copyright (C) 2023 MageINIC <support@mageinic.com>
+ *
+ * NOTICE OF LICENSE
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see https://opensource.org/licenses/gpl-3.0.html.
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category MageINIC
+ * @package MageINIC_StorePickup
+ * @copyright Copyright (c) 2023 MageINIC (https://www.mageinic.com/)
+ * @license https://opensource.org/licenses/gpl-3.0.html GNU General Public License,version 3 (GPL-3.0)
+ * @author MageINIC <support@mageinic.com>
+ */
+-->
+
+<div class="file-uploader-summary">
+    <div class="file-uploader-preview image-uploader-preview">
+        <a class="image-uploader-preview-link" attr="href: $parent.getFilePreview($file)" target="_blank">
+            <div class="file-uploader-spinner image-uploader-spinner"></div>
+            <img class="preview-image"
+                 tabindex="0"
+                 event="load: $parent.onPreviewLoad.bind($parent)"
+                 attr="src: $parent.getFilePreview($file), alt: $file.name, title: $file.name">
+        </a>
+
+        <div class="actions">
+            <button type="button"
+                    class="action-remove"
+                    data-role="delete-button"
+                    attr="title: $t('Delete image')"
+                    disable="$parent.disabled"
+                    click="$parent.removeFile.bind($parent, $file)">
+                <span translate="'Delete image'"></span>
+            </button>
+        </div>
+    </div>
+
+    <div class="file-uploader-filename" text="$file.name"></div>
+    <div class="file-uploader-meta">
+        <text args="$file.previewWidth"></text>x<text args="$file.previewHeight"></text>,
+        <text args="$parent.formatSize($file.size)"></text>
+    </div>
+</div>

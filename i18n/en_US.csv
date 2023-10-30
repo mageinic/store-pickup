@@ -1,0 +1,170 @@
+Back,Back
+Delete,Delete
+"Are you sure you want to do this?","Are you sure you want to do this?"
+Reset,Reset
+"Save and Continue Edit","Save and Continue Edit"
+Save,Save
+Home,Home
+"Go to Home Page","Go to Home Page"
+"Go to Store pickup List Page","Go to Store pickup List Page"
+MageINIC,MageINIC
+"Store Holidays","Store Holidays"
+"You deleted the Store Holiday.","You deleted the Store Holiday."
+"We can't find a Store Holiday to delete.","We can't find a Store Holiday to delete."
+"Manage Holidays","Manage Holidays"
+"This Store Holiday no longer exists.","This Store Holiday no longer exists."
+"Edit Store Holiday","Edit Store Holiday"
+"New Store Holiday","New Store Holiday"
+"Holiday: ""%1""","Holiday: ""%1"""
+"New Store Holidays","New Store Holidays"
+"Please correct the data sent.","Please correct the data sent."
+"Something went wrong while saving the page.","Something went wrong while saving the page."
+"A total of %1 record(s) have been deleted.","A total of %1 record(s) have been deleted."
+"A total of %1 record(s) were updated.","A total of %1 record(s) were updated."
+"This Holiday no longer exists.","This Holiday no longer exists."
+"You saved the Holiday.","You saved the Holiday."
+"Something went wrong.","Something went wrong."
+StorePickup,StorePickup
+"You deleted the Store Pickup.","You deleted the Store Pickup."
+"We can't find a store pickup to delete.","We can't find a store pickup to delete."
+"This Store Pickup no longer exists.","This Store Pickup no longer exists."
+"Edit StorePickup","Edit StorePickup"
+"New StorePickup","New StorePickup"
+StorePickups,StorePickups
+"Store Pickup: ""%1""","Store Pickup: ""%1"""
+"New Store Pickup","New Store Pickup"
+"Manage Store Pickup","Manage Store Pickup"
+"This Store no longer exists.","This Store no longer exists."
+"You saved the Store.","You saved the Store."
+"The Store Pickup with the ""%1"" ID doesn't exist.","The Store Pickup with the ""%1"" ID doesn't exist."
+Enabled,Enabled
+Disabled,Disabled
+"Could not save the Holiday: %1","Could not save the Holiday: %1"
+"Could not delete the Holiday: %1","Could not delete the Holiday: %1"
+"Holidays with id ""%1"" does not exist.","Holidays with id ""%1"" does not exist."
+"Something went wrong while saving the file(s).","Something went wrong while saving the file(s)."
+"File validation failed.","File validation failed."
+"File can not be saved to the destination folder.","File can not be saved to the destination folder."
+"The Store Pickup URL key can't use capital letters or disallowed symbols. Remove the letters and symbols and try again.","The Store Pickup URL key can't use capital letters or disallowed symbols. Remove the letters and symbols and try again."
+"The Store Pickup URL key can't use only numbers. Add letters or words and try again.","The Store Pickup URL key can't use only numbers. Add letters or words and try again."
+"A Store Pickup URL key with the same properties already exists in the selected store.","A Store Pickup URL key with the same properties already exists in the selected store."
+Kilometer,Kilometer
+Miles,Miles
+Navigation,Navigation
+"Top Link","Top Link"
+"Something went wrong while getting the image url.","Something went wrong while getting the image url."
+"Could not save the storePickUp: %1","Could not save the storePickUp: %1"
+"Could not delete the StorePickup: %1","Could not delete the StorePickup: %1"
+"StorePickup with id ""%1"" does not exist.","StorePickup with id ""%1"" does not exist."
+"The value specified in the URL Key field would generate a URL that already exists.","The value specified in the URL Key field would generate a URL that already exists."
+", Store Pickup Date: ",", Store Pickup Date: "
+", Store Pickup Date: %1",", Store Pickup Date: %1"
+Edit,Edit
+"Delete %1","Delete %1"
+"Are you sure you want to delete a %1 record?","Are you sure you want to delete a %1 record?"
+"All Store Views","All Store Views"
+Closed,Closed
+"Break Time","Break Time"
+Address:,Address:
+State:,State:
+City:,City:
+Zip:,Zip:
+Description:,Description:
+"Read More","Read More"
+Map,Map
+"Get Coordinates","Get Coordinates"
+"Address: ","Address: "
+"City: ","City: "
+"Country: ","Country: "
+"Zip: ","Zip: "
+tel:%1,tel:%1
+mailto:%1,mailto:%1
+"Holiday Name","Holiday Name"
+"To Date","To Date"
+"From Date","From Date"
+"Search Radius","Search Radius"
+", %1",", %1"
+"Working Time List","Working Time List"
+"Pickup Store are not added to this Store.","Pickup Store are not added to this Store."
+"Delete image","Delete image"
+"Select Pickup Store","Select Pickup Store"
+"Select Pickup Date","Select Pickup Date"
+"Choose Store Pickup","Choose Store Pickup"
+"--Please Select Store--","--Please Select Store--"
+"StorePickup Section","StorePickup Section"
+"Save StorePickup","Save StorePickup"
+"Delete StorePickup","Delete StorePickup"
+Holiday,Holiday
+"Save Holiday","Save Holiday"
+"Delete Holiday","Delete Holiday"
+"MageINIC Store Pickup Shipping","MageINIC Store Pickup Shipping"
+"Method Name","Method Name"
+Price,Price
+"Sort Order","Sort Order"
+Title,Title
+"Ship to Applicable Countries","Ship to Applicable Countries"
+"Ship to Specific Countries","Ship to Specific Countries"
+"Displayed Error Message","Displayed Error Message"
+"StorePickup Information","StorePickup Information"
+Enable,Enable
+"Holiday From","Holiday From"
+"Holiday To","Holiday To"
+"Holiday Description","Holiday Description"
+"Add New Holiday","Add New Holiday"
+Select...,Select...
+Status,Status
+"Are you sure you want to delete selected items?","Are you sure you want to delete selected items?"
+"Delete items","Delete items"
+"Change status","Change status"
+Disable,Disable
+ID,ID
+"Holiday name","Holiday name"
+Actions,Actions
+"Brand Information","Brand Information"
+"Enables Pickup Option for this location.","Enables Pickup Option for this location."
+"Store Name","Store Name"
+"Store Email","Store Email"
+"Store Image","Store Image"
+Position,Position
+"What is this?","What is this?"
+"Store View","Store View"
+"Store Content","Store Content"
+Website,Website
+"Provide pickup store website URL..","Provide pickup store website URL.."
+"Store Address & Locator","Store Address & Locator"
+Address,Address
+Country,Country
+"-- Please Select --","-- Please Select --"
+State/Region,State/Region
+City,City
+"Zip/Postal Code","Zip/Postal Code"
+"Phone Number","Phone Number"
+Latitude,Latitude
+"Note: Valid latitudes values are from -85 to 85 degrees..","Note: Valid latitudes values are from -85 to 85 degrees.."
+Longitude,Longitude
+"Note: Valid longitudes values are from -180 to 180 degrees.","Note: Valid longitudes values are from -180 to 180 degrees."
+"Store Schedule","Store Schedule"
+Add,Add
+Days,Days
+"Opening Hours","Opening Hours"
+"Opening Minutes","Opening Minutes"
+"Start Break hour","Start Break hour"
+"Start Break Minutes","Start Break Minutes"
+"End Break hour","End Break hour"
+"End Break Minutes","End Break Minutes"
+"Closing Hours","Closing Hours"
+"Closing Minutes","Closing Minutes"
+"Search Engine Optimization","Search Engine Optimization"
+"URL Key","URL Key"
+"Meta Title","Meta Title"
+"Meta Keywords","Meta Keywords"
+"Meta Description","Meta Description"
+"Add New Store Pickup","Add New Store Pickup"
+"Store name","Store name"
+Image,Image
+"Post/Zip code","Post/Zip code"
+State/Province,State/Province
+"Store Contact No.","Store Contact No."
+E-mail,E-mail
+"Store Pickup Name","Store Pickup Name"
+"Store Pickup Date","Store Pickup Date"

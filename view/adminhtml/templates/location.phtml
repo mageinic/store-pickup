@@ -1,0 +1,70 @@
+<?php
+/**
+ * MageINIC
+ * Copyright (C) 2023 MageINIC <support@mageinic.com>
+ *
+ * NOTICE OF LICENSE
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see https://opensource.org/licenses/gpl-3.0.html.
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category MageINIC
+ * @package MageINIC_StorePickup
+ * @copyright Copyright (c) 2023 MageINIC (https://www.mageinic.com/)
+ * @license https://opensource.org/licenses/gpl-3.0.html GNU General Public License,version 3 (GPL-3.0)
+ * @author MageINIC <support@mageinic.com>
+ */
+
+use MageINIC\StorePickUp\Block\Adminhtml\StorePickup\Location;
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Helper\SecureHtmlRenderer;
+
+/**
+ * @var Location $block
+ * @var Escaper $escaper
+ * @var SecureHtmlRenderer $secureRenderer
+ */
+
+$mapApiKey = $block->getGoogleKey();
+$library = "https://maps.googleapis.com/maps/api/js?libraries=places&key=$mapApiKey&sensor=false";
+?>
+<div class="admin__field">
+    <div class="admin__field-label" data-bind="visible: $data.labelVisible">
+        <label><span><?= $escaper->escapeHtml(__("Map")) ?></span></label>
+    </div>
+    <div class="admin__field-control">
+        <div class="actions">
+            <button class="scalable add-coordinate" type="button" title="Get Coordinate" id="add-coordinates">
+                <span><?= $escaper->escapeHtml(__("Get Coordinates")) ?></span>
+            </button>
+        </div>
+        <div class="store-map">
+            <div id="map-canvas" class="map-canvas"></div>
+            <?= /* @noEscape */ $secureRenderer->renderStyleAsTag(
+                'margin-top: 20px; height: 515px;',
+                'div#' . 'map-canvas'
+            ) ?>
+        </div>
+        <script>
+            require([
+                'jquery',
+                'Magento_Ui/js/lib/view/utils/dom-observer',
+                'mage/adminhtml/form',
+                'google-map',
+                '<?= /* @noEscape */ $library ?>'
+            ], function($, domObserver) {
+                domObserver.get('#map-canvas', function () {
+                    $('#map-canvas').miStorePickup();
+                });
+            })
+        </script>
+    </div>
+</div>

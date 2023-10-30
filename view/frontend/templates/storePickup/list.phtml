@@ -1,0 +1,146 @@
+<?php
+/**
+ * MageINIC
+ * Copyright (C) 2023 MageINIC <support@mageinic.com>
+ *
+ * NOTICE OF LICENSE
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see https://opensource.org/licenses/gpl-3.0.html.
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category MageINIC
+ * @package MageINIC_StorePickup
+ * @copyright Copyright (c) 2023 MageINIC (https://www.mageinic.com/)
+ * @license https://opensource.org/licenses/gpl-3.0.html GNU General Public License,version 3 (GPL-3.0)
+ * @author MageINIC <support@mageinic.com>
+ */
+
+use MageINIC\StorePickup\Block\StorePickup\ListStorePickup;
+use MageINIC\StorePickup\Model\StorePickup;
+use MageINIC\StorePickup\ViewModel\StorePickup as ViewModel;
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Helper\SecureHtmlRenderer;
+
+/**
+ * @var ListStorePickup $block
+ * @var Escaper $escaper
+ * @var SecureHtmlRenderer $secureRenderer
+ * @var ViewModel $viewModel
+ */
+
+$viewModel = $block->getViewModel();
+$storeList = $block->getCollection();
+$storeMarkers = $viewModel->getGoogleMarkers($storeList);
+$storeDetails = $viewModel->getGoogleMarkersDetails($storeList);
+$maxRadius = $viewModel->getMaxRadius();
+?>
+<?php if (count($storeList)): ?>
+    <div class="mageinic-main-container" style="clear:both;">
+        <div class="mageinic-locator-map-container" id="mageinic-locator-map-container">
+
+            <div class="mageinic-locator-search-container">
+                <div class="mageinic-locator-block -current mageinic-locator-current-location">
+                    <div class="mageinic-locator-wrapper">
+                        <label>
+                            <input id="search-text" type="text" value=""
+                                   class="mageinic-locator-text pac-target-input controls"
+                                   placeholder="Enter your search location here">
+                        </label>
+                    </div>
+                </div>
+                <div class="mageinic-locator-block -search mageinic-locator-search-radius">
+                    <label class="mageinic-locator-title" id="range_radius" for="radius">
+                        <?= $escaper->escapeHtml(__('Search Radius')) ?>
+                    </label>
+                    <label><?= $escaper->escapeHtml(__(', %1', $viewModel->getRadiusLength())) ?></label>
+                    <input type="hidden" id="radius-measurement"
+                           value="<?= $escaper->escapeHtmlAttr($viewModel->getDefaultRadius()) ?>">
+                    <div class="mageinic-locator-wrapper">
+                        <div id="mageinic-locator-range-slider">
+                            <label for="radius-select">
+                                <input type="range" name="radius" id="radius-select"
+                                       min="0" max="<?= $escaper->escapeJs($maxRadius) ?>" value="0">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?= /* @noEscape */ $viewModel->getHtmlSeparator() ?>
+        </div>
+        <div class="mageinic-locator-block -storelist mageinic-locator-store-list">
+            <div class="mageinic-locator-wrapper">
+                <div class="mageinic-locator-stores-wrapper">
+                    <?php /** @var StorePickup $store */ ?>
+                    <?php foreach ($storeList as $store): ?>
+                        <div class="mageinic-locator-store-desc" name="leftLocation">
+                            <div class="mageinic-locator-block">
+                                <div class="mageinic-locator-image" style="background-image:
+                                    url('<?= $escaper->escapeUrl($viewModel->getStoreImageUrl($store)) ?>')">
+                                </div>
+                                <div class="mageinic-locator-store-information">
+                                    <div class="mageinic-locator-title">
+                                        <a class="mageinic-locator-link"
+                                           href="<?= $escaper->escapeUrl($store->getUrl()) ?>"
+                                           title="<?= $escaper->escapeHtmlAttr($store->getName()) ?>" target="_blank">
+                                            <?= $escaper->escapeHtml($store->getName()) ?></a>
+                                    </div>
+                                    <span><?= $escaper->escapeHtml(__('City: ')) ?>
+                                        <?= $escaper->escapeHtml($store->getCity()) ?></span>
+                                    <span><?= $escaper->escapeHtml(__('Zip: ')) ?>
+                                        <?= $escaper->escapeHtml($store->getPostcode()) ?></span>
+                                    <span><?= $escaper->escapeHtml(__('Address: ')) ?>
+                                        <?= $escaper->escapeHtml($store->getAddress()) ?></span>
+                                </div>
+                            </div>
+                            <div class="mageinic-locator-schedule-container">
+                                <div class="mageinic-locator-week" id="schedule"
+                                     data-mage-init='{
+                                     "collapsible":{"animate":{"duration" :400, "easing":"easeOutCubic"}}
+                                     }'>
+                                    <div class="mageinic-locator-today" data-role="title">
+                                        <strong><?= $escaper->escapeHtml(__('Working Time List')) ?></strong>
+                                        <span class="mageinic-locator-time">
+                                            <span class="mageinic-locator-arrow -down">▼</span>
+                                        </span>
+                                    </div>
+                                    <div class="mageinic-locator-schedule-table" data-role="content">
+                                        <?= /* @noEscape */ $viewModel->getScheduleList($store) ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+                <?php if ($block->getPagerHtml()): ?>
+                    <div class="toolbar bottom"><?= /* @noEscape */ $block->getPagerHtml() ?></div>
+                <?php endif ?>
+            </div>
+            <div class="mageinic-locator-block-map">
+                <div id="mageinic-canvas-map"></div>
+                <script type="text/x-magento-init">
+                    {
+                        "*": {
+                            "mapLocator":{
+                                "markers": <?= /* @noEscape */ $viewModel->serialize($storeMarkers) ?>,
+                                "infoWindowContent": <?= /* @noEscape */ $viewModel->serialize($storeDetails); ?>,
+                                "length": "<?= $escaper->escapeJs($viewModel->getRadiusLength()) ?>"
+                           }
+                        }
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+<?php else: ?>
+    <div class="message info empty">
+        <span><?= $escaper->escapeHtml(__('Pickup Store are not added to this Store.')) ?></span>
+    </div>
+<?php endif; ?>

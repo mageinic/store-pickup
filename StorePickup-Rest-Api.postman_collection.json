@@ -1,0 +1,183 @@
+{
+	"info": {
+		"_postman_id": "94e328bc-d974-49b4-8e9d-1a38360b18e6",
+		"name": "StorePickup Rest Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Store Pickup By Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{magento_api_url}}/V1/store_pickup/1",
+					"host": [
+						"{{magento_api_url}}"
+					],
+					"path": [
+						"V1",
+						"store_pickup",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Holiday By Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{magento_api_url}}/V1/store_holiday/2",
+					"host": [
+						"{{magento_api_url}}"
+					],
+					"path": [
+						"V1",
+						"store_holiday",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Store Pickup List",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"searchCriteria\": {\n        \"filterGroups\": [\n            {\n                \"filters\": [\n                    {\n                        \"field\": \"enable\",\n                        \"value\": \"1\",\n                        \"condition_type\": \"eq\"\n                    }\n                ]\n            },\n            {\n                \"filters\": [\n                    {\n                        \"field\": \"store_id\",\n                        \"value\": \"1\",\n                        \"condition_type\": \"in\"\n                    }\n                ]\n            }\n        ],\n        \"current_page\": 1,\n        \"page_size\": 10\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{magento_api_url}}/V1/store_pickup/search?searchCriteria[currentPage]=1&searchCriteria[pageSize]=10&searchCriteria[filter_groups][0][filters][0][field]=entity_id&searchCriteria[filter_groups][0][filters][0][value]=1&searchCriteria[filter_groups][0][filters][0][condition_type]=eq",
+					"host": [
+						"{{magento_api_url}}"
+					],
+					"path": [
+						"V1",
+						"store_pickup",
+						"search"
+					],
+					"query": [
+						{
+							"key": "searchCriteria[currentPage]",
+							"value": "1"
+						},
+						{
+							"key": "searchCriteria[pageSize]",
+							"value": "10"
+						},
+						{
+							"key": "searchCriteria[filter_groups][0][filters][0][field]",
+							"value": "entity_id"
+						},
+						{
+							"key": "searchCriteria[filter_groups][0][filters][0][value]",
+							"value": "1"
+						},
+						{
+							"key": "searchCriteria[filter_groups][0][filters][0][condition_type]",
+							"value": "eq"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Holidays List",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"searchCriteria\": {\n        \"filterGroups\": [\n            {\n                \"filters\": [\n                    {\n                        \"field\": \"enable\",\n                        \"value\": \"1\",\n                        \"condition_type\": \"eq\"\n                    }\n                ]\n            },\n            {\n                \"filters\": [\n                    {\n                        \"field\": \"store_id\",\n                        \"value\": \"1\",\n                        \"condition_type\": \"in\"\n                    }\n                ]\n            }\n        ],\n        \"current_page\": 1,\n        \"page_size\": 10\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{magento_api_url}}/V1/store_holiday/search?searchCriteria[currentPage]=1&searchCriteria[pageSize]=10&searchCriteria[filter_groups][0][filters][0][field]=holiday_id&searchCriteria[filter_groups][0][filters][0][value]=2&searchCriteria[filter_groups][0][filters][0][condition_type]=eq",
+					"host": [
+						"{{magento_api_url}}"
+					],
+					"path": [
+						"V1",
+						"store_holiday",
+						"search"
+					],
+					"query": [
+						{
+							"key": "searchCriteria[currentPage]",
+							"value": "1"
+						},
+						{
+							"key": "searchCriteria[pageSize]",
+							"value": "10"
+						},
+						{
+							"key": "searchCriteria[filter_groups][0][filters][0][field]",
+							"value": "holiday_id"
+						},
+						{
+							"key": "searchCriteria[filter_groups][0][filters][0][value]",
+							"value": "2"
+						},
+						{
+							"key": "searchCriteria[filter_groups][0][filters][0][condition_type]",
+							"value": "eq"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJraWQiOiIxIiwiYWxnIjoiSFMyNTYifQ.eyJ1aWQiOjIsInV0eXBpZCI6MywiaWF0IjoxNjk3MDA0NzU2LCJleHAiOjE2OTcwMDgzNTZ9.BJZrVkfAvZdBNshw7QMNShVwCxBYC_qpTRIrZNs2NhY",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

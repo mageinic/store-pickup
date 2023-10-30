@@ -1,0 +1,96 @@
+{
+    "mageinic_store_pickup": {
+        "column": {
+            "entity_id": true,
+            "is_active": true,
+            "name": true,
+            "image": true,
+            "email": true,
+            "website": true,
+            "position": true,
+            "content": true,
+            "address": true,
+            "city": true,
+            "state_id": true,
+            "region": true,
+            "country_id": true,
+            "postcode": true,
+            "contact_no": true,
+            "longitude": true,
+            "latitude": true,
+            "schedule": true,
+            "identifier": true,
+            "meta_title": true,
+            "meta_keywords": true,
+            "meta_description": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "MAGEINIC_STORE_PICKUP_IDENTIFIER": true,
+            "FTI_40D706A984E93676574BFED9642F9753": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "mageinic_store_holidays": {
+        "column": {
+            "holiday_id": true,
+            "name": true,
+            "is_active": true,
+            "description": true,
+            "from_date": true,
+            "to_date": true
+        },
+        "index": {
+            "MAGEINIC_STORE_HOLIDAYS_NAME_DESCRIPTION": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "mageinic_store_pickup_store": {
+        "column": {
+            "entity_id": true,
+            "store_id": true
+        },
+        "index": {
+            "MAGEINIC_STORE_PICKUP_STORE_STORE_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_9E89A9A133D69BD3F0EA73B62B194831": true,
+            "MAGEINIC_STORE_PICKUP_STORE_STORE_ID_STORE_STORE_ID": true
+        }
+    },
+    "mageinic_store_pickup_holidays": {
+        "column": {
+            "entity_id": true,
+            "holiday_id": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_4224EBE7FC5A5636E8A0A6AFBBA4623E": true,
+            "FK_A7ABEB227D150C0503A4FF1CFA32C1A8": true
+        }
+    },
+    "quote": {
+        "column": {
+            "store_pickup_id": true,
+            "store_pickup_date": true
+        }
+    },
+    "sales_order": {
+        "column": {
+            "store_pickup_id": true,
+            "store_pickup_date": true
+        }
+    },
+    "sales_order_grid": {
+        "column": {
+            "store_pickup_id": true,
+            "store_pickup_date": true
+        }
+    }
+}

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * MageINIC
+ * Copyright (C) 2023 MageINIC <support@mageinic.com>
+ *
+ * NOTICE OF LICENSE
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see https://opensource.org/licenses/gpl-3.0.html.
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category MageINIC
+ * @package MageINIC_StorePickup
+ * @copyright Copyright (c) 2023 MageINIC (https://www.mageinic.com/)
+ * @license https://opensource.org/licenses/gpl-3.0.html GNU General Public License,version 3 (GPL-3.0)
+ * @author MageINIC <support@mageinic.com>
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <store_pickup>
+            <general>
+                <enable>0</enable>
+                <store_link>Store Pickup</store_link>
+                <store_link_location>toplink</store_link_location>
+            </general>
+            <store_list_view>
+                <frontend_url>store-pickup</frontend_url>
+                <meta_title>Store Pickup</meta_title>
+            </store_list_view>
+            <search_config>
+                <default_radius>10</default_radius>
+                <max_radius>100</max_radius>
+                <length_option>km</length_option>
+            </search_config>
+        </store_pickup>
+        <carriers>
+            <mageinic_store_pickup>
+                <active>1</active>
+                <allow_specific_countries>0</allow_specific_countries>
+                <model>MageINIC\StorePickup\Model\Carrier\Shipping</model>
+                <name>Store Pickup Delivery</name>
+                <price>00.00</price>
+                <title>Store Pickup</title>
+                <specific_error_msg>This method is not available. To use this shipping method, please contact us.
+                </specific_error_msg>
+                <handling_type>F</handling_type>
+            </mageinic_store_pickup>
+        </carriers>
+    </default>
+</config>
