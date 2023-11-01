@@ -1,6 +1,6 @@
 {
     "name": "mageinic/store-pickup",
-    "description": "MageINIC's Store Pickup Extension, designed by our expert team, enhances the shopping experience with seamless online orders and convenient in-store pickups.",
+    "description": "Store Pickup Extension by MageINIC, offers a streamlined shopping experience by allowing customers to order online and collect their items from a physical store. This approach eliminates shipping delays and empowers customers to decide when and where to pick up their purchases, leading to cost savings.",
     "require": {
         "php": "^8.0",
         "mageinic/core": "1.0.*",
@@ -13,7 +13,8 @@
     "type": "magento2-module",
     "version": "1.0.0",
     "license": [
-        "Commercial"
+        "OSL-3.0",
+        "AFL-3.0"
     ],
     "authors": [
         {
