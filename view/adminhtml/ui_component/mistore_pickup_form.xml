@@ -149,6 +149,9 @@
                 <label translate="true">Store Image</label>
                 <visible>true</visible>
                 <required>false</required>
+                <additionalClasses>
+                    <class name="store-image">true</class>
+                </additionalClasses>
                 <validation>
                     <rule name="required-entry" xsi:type="boolean">true</rule>
                 </validation>

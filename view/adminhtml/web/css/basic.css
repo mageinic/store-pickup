@@ -26,6 +26,8 @@ td.store-holiday-status {
     width: 150px;
 }
 
-.file-uploader-area label:nth-child(3) {
+.admin__field.store-image .file-uploader-area label:nth-child(2),
+.admin__field.store-image .file-uploader-area label:nth-child(3) {
     display: none;
 }
+
